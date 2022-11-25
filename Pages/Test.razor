@@ -1,0 +1,16 @@
+﻿@page "/test"
+@using JavaScriptInterop.Models
+@inject IJSRuntime JS
+
+
+<h3>Test</h3>
+
+<div id="initial">최초글자</div>
+<button class="btn btn-primary" @onclick="ChangeText">변경</button>
+
+@code {
+    protected void ChangeText()
+    {
+        
+    }
+}

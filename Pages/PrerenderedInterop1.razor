@@ -1,0 +1,20 @@
+﻿@page "/prerendered-1"
+@using Microsoft.JSInterop
+<!-- IJSRuntime 추가 -->
+@inject IJSRuntime JS
+
+<div @ref="divElement">Text during render</div>
+
+@code {
+    private ElementReference divElement;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //await.JSRuntime.InvokeVoidAsync("함수명", 매개변수) 형식으로 호출
+            await JS.InvokeVoidAsync(
+                "setElementText1", divElement, "Text after render");
+        }
+    }
+}

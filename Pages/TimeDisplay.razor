@@ -1,0 +1,32 @@
+﻿@page "/timedisplay"
+@implements IAsyncDisposable
+
+<p>Event starts at: @displayTime.ToString("g")</p>
+<button class="btn btn-primary" @onclick="OnClick">Click Me</button>
+
+@code {
+    [Inject] IJSRuntime JSRuntime { get; set; }
+    IJSObjectReference module;
+
+    private DateTime displayTime = DateTime.UtcNow;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./scripts/components/TimeDisplay.js");
+    }
+
+    private async Task OnClick()
+    {
+        var converted = await module.InvokeAsync<string>("ConvertStartTimeToLocal", displayTime.ToString("g"));
+        Console.WriteLine(converted);
+        displayTime = DateTime.Parse(converted);
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}

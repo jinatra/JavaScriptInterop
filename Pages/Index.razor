@@ -1,0 +1,21 @@
+﻿@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<p>
+    <button class="btn btn-primary" @onclick="ShowAlert">알림창 띄우기</button>
+</p>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    private async Task ShowAlert()
+    {
+        await JS.InvokeVoidAsync("showAlert", "Hello, Awesome!");
+    }
+}
