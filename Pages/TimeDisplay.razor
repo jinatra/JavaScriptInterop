@@ -17,8 +17,7 @@
 
     private async Task OnClick()
     {
-        var converted = await module.InvokeAsync<string>("ConvertStartTimeToLocal", displayTime.ToString("g"));
-        Console.WriteLine(converted);
+        var converted = await module.InvokeAsync<string>("ConvertStartTimeToLocal", displayTime.ToString("yyyy-MM-dd HH:mm:ss"));
         displayTime = DateTime.Parse(converted);
     }
 

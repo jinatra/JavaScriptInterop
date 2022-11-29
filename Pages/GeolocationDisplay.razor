@@ -1,0 +1,37 @@
+﻿@page "/geolocation"
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<PageTitle>My Location</PageTitle>
+
+<h3> My Current Location </h3>
+<button class="btn btn-primary" @onclick="OnClick">Click Me To Get Location!</button>
+
+<p>Latitude(위도): @resultLat</p>
+<p>Longtitude(경도): @resultLong</p>
+
+@code {
+    IJSObjectReference module;
+
+    private double resultLat = 0;
+    private double resultLong = 0; 
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        module = await JS.InvokeAsync<IJSObjectReference>("import", "./scripts/components/Geolocation.js");
+    }
+
+    private async Task OnClick()
+    {
+        resultLat = await module.InvokeAsync<double>("GetLatitude");
+        resultLong = await module.InvokeAsync<double>("GetLongtitude");
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}
