@@ -16,6 +16,7 @@ Welcome to your new app.
 @code {
     private async Task ShowAlert()
     {
+        // /wwwroot/index.html에서 삽입된 JS 함수 확인 가능
         await JS.InvokeVoidAsync("showAlert", "Hello, Awesome!");
     }
 }

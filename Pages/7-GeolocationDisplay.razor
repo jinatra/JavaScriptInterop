@@ -18,6 +18,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        // module을 통해 JS Object import
         module = await JS.InvokeAsync<IJSObjectReference>("import", "./scripts/components/Geolocation.js");
     }
 

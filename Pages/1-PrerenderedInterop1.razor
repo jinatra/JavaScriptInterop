@@ -13,6 +13,7 @@
         if (firstRender)
         {
             //await.JSRuntime.InvokeVoidAsync("함수명", 매개변수) 형식으로 호출
+            // /wwwroot/index.html에서 삽입된 JS 함수 확인 가능
             await JS.InvokeVoidAsync(
                 "setElementText1", divElement, "Text after render");
         }

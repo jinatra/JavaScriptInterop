@@ -40,6 +40,7 @@ else
     {
         if (firstRender)
         {
+            // /wwwroot/index.html에서 삽입된 JS 함수 확인 가능
             data = await JS.InvokeAsync<string>(
                 "setElementText2", divElement, "Hello from interop call!"
             );
